@@ -29,34 +29,3 @@ This pipeline automates the journey of financial data from a third-party API (Al
 ├── .gitignore              # Git safety
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project overview
-⚙️ Key Engineering Features
-S3 Data Lake Partitioning: Implements a logical folder structure (raw/stock_data/YYYY-MM-DD/) to optimize data retrieval and storage costs.
-
-Redshift COPY Performance: Utilizes the high-performance COPY command to ingest data from S3 in parallel, demonstrating knowledge of MPP (Massively Parallel Processing) databases.
-
-Idempotent Design: Employs a DELETE-INSERT (Upsert) strategy in SQL to ensure the pipeline can be re-run for any date without creating duplicate records.
-
-Automated Data Quality (DQC): Includes a validation suite to detect NULL values, invalid trade volumes, and data freshness issues before the data is delivered to analysts.
-
-🔧 Installation & Setup
-Clone the Repo:
-
-Bash
-
-git clone [https://github.com/yourusername/market-data-pipeline.git](https://github.com/yourusername/market-data-pipeline.git)
-cd market-data-pipeline
-Install Dependencies:
-
-Bash
-
-pip install -r requirements.txt
-Configure Environment: Create a .env file based on the requirements listed in docs/architecture.md.
-
-📈 Data Lineage
-Extract: Lambda pulls JSON data from Alpha Vantage.
-
-Load: Glue executes a COPY command into Redshift Staging.
-
-Transform: SQL casts types and performs a clean "Upsert" into the Final Fact table.
-
-Audit: Python verifies the final table for integrity.
